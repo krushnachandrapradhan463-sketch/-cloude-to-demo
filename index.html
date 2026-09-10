@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cacao Atlas — Single-origin chocolate</title>
+<meta name="description" content="Single-origin chocolate bars sourced from six growing regions, sold by flavor and provenance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDEAE3;
+    --bg-alt:#E1DBCF;
+    --ink:#211C1A;
+    --ink-soft:#5C534C;
+    --wine:#6B2737;
+    --wine-dark:#4A1C28;
+    --gold:#A9814F;
+    --ivory:#F6F1E9;
+    --line: rgba(33,28,26,0.14);
+    --radius: 3px;
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  button{ font-family:inherit; cursor:pointer; }
+
+  :focus-visible{
+    outline:2px solid var(--wine);
+    outline-offset:3px;
+  }
+
+  /* ---------- Nav ---------- */
+  .site-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(237,234,227,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:500;
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    line-height:1.1;
+  }
+  .wordmark span{
+    font-family:'Work Sans', sans-serif;
+    font-size:11px;
+    color:var(--ink-soft);
+    font-weight:400;
+    margin-top:2px;
+  }
+  .nav-links{
+    display:flex;
+    gap:36px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    font-size:15px;
+    color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    padding-bottom:3px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); border-color:var(--ink); }
+
+  .nav-right{ display:flex; align-items:center; gap:20px; }
+
+  .cart-btn{
+    position:relative;
+    background:var(--ink);
+    color:var(--ivory);
+    border:none;
+    border-radius:var(--radius);
+    padding:10px 18px;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:background .15s ease;
+  }
+  .cart-btn:hover{ background:var(--wine-dark); }
+  .cart-count{
+    background:var(--gold);
+    color:var(--ink);
+    font-size:12px;
+    font-weight:600;
+    min-width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 4px;
+  }
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    padding:8px;
+  }
+  .nav-toggle svg{ width:22px; height:22px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:88px 0 96px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:64px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    font-size:14px;
+    color:var(--wine);
+    margin:0 0 18px;
+  }
+  .hero h1{
+    font-size:clamp(40px, 5.4vw, 68px);
+    line-height:1.03;
+    max-width:14ch;
+  }
+  .hero p.lede{
+    margin:26px 0 34px;
+    max-width:46ch;
+    font-size:18px;
+    color:var(--ink-soft);
+  }
+  .hero-ctas{ display:flex; gap:16px; align-items:center; }
+  .btn-primary{
+    background:var(--wine);
+    color:var(--ivory);
+    border:none;
+    border-radius:var(--radius);
+    padding:14px 26px;
+    font-size:15px;
+    font-weight:500;
+    text-decoration:none;
+    display:inline-block;
+    transition:background .15s ease;
+  }
+  .btn-primary:hover{ background:var(--wine-dark); }
+  .btn-ghost{
+    background:none;
+    border:none;
+    color:var(--ink);
+    font-size:15px;
+    text-decoration:underline;
+    text-underline-offset:4px;
+    padding:14px 4px;
+  }
+
+  /* flight of swatches */
+  .flight{
+    display:flex;
+    gap:14px;
+    align-items:flex-end;
+    height:280px;
+  }
+  .swatch{
+    flex:1;
+    border-radius:var(--radius);
+    display:flex;
+    align-items:flex-end;
+    padding:14px 10px;
+    color:var(--ivory);
+    font-size:13px;
+    font-weight:500;
+    opacity:0;
+    transform:translateY(14px);
+    animation:rise .6s ease forwards;
+  }
+  .swatch:nth-child(1){ animation-delay:.05s; }
+  .swatch:nth-child(2){ animation-delay:.15s; }
+  .swatch:nth-child(3){ animation-delay:.25s; }
+  .swatch:nth-child(4){ animation-delay:.35s; }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- Origin strip ---------- */
+  .strip{
+    background:var(--ink);
+    color:var(--ivory);
+    padding:20px 0;
+  }
+  .strip .wrap{
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    font-size:14px;
+    color:#C9C2B8;
+  }
+
+  /* ---------- Section heads ---------- */
+  .section{ padding:96px 0; }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    margin-bottom:52px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:28px;
+  }
+  .section-head h2{ font-size:clamp(30px,3.4vw,42px); }
+  .section-head p{ color:var(--ink-soft); max-width:38ch; margin:0; font-size:15px; }
+
+  /* ---------- Product list ---------- */
+  .product-row{
+    display:grid;
+    grid-template-columns:64px 1.4fr 1.6fr auto auto;
+    gap:28px;
+    align-items:center;
+    padding:28px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .product-row:first-of-type{ border-top:1px solid var(--line); }
+
+  .bar{
+    width:56px;
+    height:78px;
+    border-radius:2px;
+    position:relative;
+    flex-shrink:0;
+  }
+  .bar .pct{
+    position:absolute;
+    bottom:6px;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:11px;
+    color:var(--ivory);
+    font-weight:600;
+  }
+
+  .p-name h3{ font-size:22px; margin-bottom:4px; }
+  .p-origin{ font-size:13.5px; color:var(--ink-soft); }
+  .p-coords{ font-size:12px; color:var(--ink-soft); opacity:.75; font-variant-numeric:tabular-nums; margin-top:4px; }
+
+  .p-notes{ font-size:14.5px; color:var(--ink-soft); max-width:34ch; }
+  .p-notes strong{ color:var(--ink); font-weight:500; }
+
+  .p-price{ font-family:'Fraunces', serif; font-size:20px; white-space:nowrap; justify-self:end; }
+
+  .p-add{
+    background:none;
+    border:1px solid var(--ink);
+    border-radius:var(--radius);
+    padding:10px 20px;
+    font-size:14px;
+    justify-self:end;
+    white-space:nowrap;
+    transition:background .15s ease, color .15s ease;
+  }
+  .p-add:hover{ background:var(--ink); color:var(--ivory); }
+  .p-add.added{ background:var(--wine); border-color:var(--wine); color:var(--ivory); }
+
+  /* ---------- Story ---------- */
+  .story{
+    background:var(--bg-alt);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .story .wrap{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:72px;
+    align-items:center;
+    padding:96px 32px;
+  }
+  .story-art{
+    aspect-ratio:4/5;
+    border-radius:var(--radius);
+    background:
+      linear-gradient(160deg, #3B2A24 0%, #211C1A 60%);
+    position:relative;
+    overflow:hidden;
+  }
+  .story-art::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(246,241,233,0.06) 0 1px, transparent 1px 46px),
+      repeating-linear-gradient(0deg, rgba(246,241,233,0.06) 0 1px, transparent 1px 46px);
+  }
+  .story-art .coord{
+    position:absolute;
+    bottom:24px;
+    left:24px;
+    color:var(--ivory);
+    font-size:13px;
+    opacity:.8;
+  }
+  blockquote{
+    font-family:'Fraunces', serif;
+    font-size:clamp(24px,2.4vw,30px);
+    font-weight:500;
+    line-height:1.35;
+    margin:0 0 24px;
+  }
+  .story p.byline{ color:var(--ink-soft); font-size:14px; margin:0 0 28px; }
+  .story p.body-text{ color:var(--ink-soft); font-size:15.5px; max-width:52ch; }
+
+  /* ---------- Newsletter band ---------- */
+  .band{
+    background:var(--wine);
+    color:var(--ivory);
+  }
+  .band .wrap{
+    padding:72px 32px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:40px;
+    align-items:center;
+  }
+  .band h2{ font-size:clamp(26px,3vw,36px); max-width:16ch; }
+  .band p{ color:#E7C9CE; margin:12px 0 0; font-size:15px; }
+  .band-form{ display:flex; gap:10px; }
+  .band-form input{
+    background:transparent;
+    border:1px solid rgba(246,241,233,0.4);
+    border-radius:var(--radius);
+    padding:13px 16px;
+    color:var(--ivory);
+    font-size:14px;
+    width:240px;
+  }
+  .band-form input::placeholder{ color:#D9B7BE; }
+  .band-form button{
+    background:var(--ivory);
+    color:var(--wine-dark);
+    border:none;
+    border-radius:var(--radius);
+    padding:13px 22px;
+    font-size:14px;
+    font-weight:600;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{ padding:56px 0; }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  footer .foot-links{ display:flex; gap:24px; list-style:none; padding:0; margin:0; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ text-decoration:underline; }
+
+  /* ---------- Cart drawer ---------- */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(33,28,26,0.45);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+    z-index:90;
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+
+  .drawer{
+    position:fixed;
+    top:0; right:0;
+    height:100%;
+    width:420px;
+    max-width:92vw;
+    background:var(--ivory);
+    z-index:100;
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    display:flex;
+    flex-direction:column;
+    box-shadow:-8px 0 30px rgba(0,0,0,0.15);
+  }
+  .drawer.open{ transform:translateX(0); }
+
+  .drawer-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:26px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  .drawer-head h2{ font-size:22px; }
+  .drawer-close{
+    background:none; border:none;
+    padding:6px;
+  }
+  .drawer-close svg{ width:20px; height:20px; }
+
+  .drawer-body{
+    flex:1;
+    overflow-y:auto;
+    padding:8px 28px;
+  }
+  .cart-empty{
+    padding:60px 0;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:14.5px;
+  }
+
+  .cart-item{
+    display:grid;
+    grid-template-columns:40px 1fr auto;
+    gap:14px;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .cart-item .mini-bar{ width:40px; height:54px; border-radius:2px; }
+  .cart-item h4{ font-family:'Fraunces', serif; font-weight:500; font-size:16px; margin:0 0 2px; }
+  .cart-item .ci-meta{ font-size:12.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .qty-row{ display:flex; align-items:center; gap:10px; }
+  .qty-row button{
+    width:24px; height:24px;
+    border:1px solid var(--line);
+    background:none;
+    border-radius:2px;
+    font-size:14px;
+    line-height:1;
+  }
+  .qty-row span{ font-size:14px; min-width:16px; text-align:center; }
+  .remove-btn{
+    background:none; border:none;
+    color:var(--ink-soft);
+    font-size:12.5px;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    padding:0;
+    margin-left:14px;
+  }
+  .ci-price{ font-family:'Fraunces', serif; font-size:15px; white-space:nowrap; }
+
+  .drawer-foot{
+    padding:24px 28px 28px;
+    border-top:1px solid var(--line);
+  }
+  .subtotal-row{
+    display:flex; justify-content:space-between;
+    font-size:15px; margin-bottom:6px;
+  }
+  .subtotal-row strong{ font-family:'Fraunces', serif; font-size:20px; font-weight:500; }
+  .foot-note{ font-size:12px; color:var(--ink-soft); margin:6px 0 18px; }
+  .checkout-btn{
+    width:100%;
+    background:var(--ink);
+    color:var(--ivory);
+    border:none;
+    border-radius:var(--radius);
+    padding:15px;
+    font-size:15px;
+    font-weight:500;
+    transition:background .15s ease;
+  }
+  .checkout-btn:hover{ background:var(--wine-dark); }
+  .demo-note{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  .confirm{
+    text-align:center;
+    padding:60px 10px;
+  }
+  .confirm h3{ font-size:24px; margin-bottom:10px; }
+  .confirm p{ color:var(--ink-soft); font-size:14.5px; max-width:30ch; margin:0 auto 28px; }
+  .confirm button{
+    background:var(--ink);
+    color:var(--ivory);
+    border:none;
+    border-radius:var(--radius);
+    padding:12px 22px;
+    font-size:14px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero .wrap{ grid-template-columns:1fr; gap:48px; }
+    .flight{ height:200px; }
+    .story .wrap{ grid-template-columns:1fr; padding:64px 24px; }
+    .band .wrap{ grid-template-columns:1fr; }
+    .band-form{ flex-wrap:wrap; }
+    .band-form input{ width:100%; flex:1; }
+    .nav-links{ display:none; }
+    .nav-toggle{ display:block; }
+  }
+
+  @media (max-width: 720px){
+    .wrap{ padding:0 20px; }
+    .product-row{
+      grid-template-columns:56px 1fr;
+      grid-template-areas:
+        "bar name"
+        "bar notes"
+        "price price"
+        "add add";
+      row-gap:10px;
+    }
+    .bar{ grid-area:bar; }
+    .p-name{ grid-area:name; }
+    .p-notes{ grid-area:notes; max-width:none; }
+    .p-price{ grid-area:price; justify-self:start; }
+    .p-add{ grid-area:add; justify-self:start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="#top" class="wordmark">Cacao Atlas<span>Single-origin chocolate</span></a>
+    <ul class="nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#story">Sourcing</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartToggle" aria-haspopup="dialog" aria-controls="cartDrawer">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="hero-eyebrow">Six growing regions, one bar at a time</p>
+      <h1>Chocolate, mapped by origin.</h1>
+      <p class="lede">Every bar carries the coordinates of the farm it came from. We work with six cooperatives across three continents and change nothing about the bean except its shape.</p>
+      <div class="hero-ctas">
+        <a href="#shop" class="btn-primary">Browse the atlas</a>
+        <a href="#story" class="btn-ghost">How we source</a>
+      </div>
+    </div>
+    <div class="flight" aria-hidden="true">
+      <div class="swatch" style="background:#8A5A3C;"><span class="pct">70%</span></div>
+      <div class="swatch" style="background:#6B4028; height:88%;"><span class="pct">78%</span></div>
+      <div class="swatch" style="background:#4A2A1B; height:96%;"><span class="pct">85%</span></div>
+      <div class="swatch" style="background:#2E170F; height:78%;"><span class="pct">90%</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="wrap">
+    <span>Ecuador · 2.19°S 79.89°W</span>
+    <span>Madagascar · 13.75°S 48.27°E</span>
+    <span>Vietnam · 10.24°N 106.38°E</span>
+    <span>Peru · 6.23°S 77.87°W</span>
+    <span>Tanzania · 8.75°S 36.02°E</span>
+    <span>Papua New Guinea · 4.5°S 143.0°E</span>
+  </div>
+</div>
+
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The current atlas</h2>
+      <p>Six bars, six farms. Cacao percentage is the only number on the label — everything else is in the tasting notes.</p>
+    </div>
+
+    <div id="productList"></div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-art"><span class="coord">4°30'S, 143°0'E — East Sepik, Papua New Guinea</span></div>
+    <div>
+      <blockquote>"We buy the same fifteen hectares every harvest. When you know the farm, you stop needing to dress up the bar."</blockquote>
+      <p class="byline">— Noa Ferreira, sourcing lead</p>
+      <p class="body-text">Each origin on this site is a single farm or a cooperative of fewer than a dozen growers. We pay above the Fairtrade floor price, publish the number on request, and roast within six weeks of the harvest date printed inside every wrapper. Nothing is blended across countries — a bar labeled Ecuador is Ecuador, start to finish.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="newsletter">
+  <div class="wrap">
+    <div>
+      <h2>Hear about new harvests first</h2>
+      <p>One email per origin, sent when the new crop lands. No more than six a year.</p>
+    </div>
+    <form class="band-form" id="newsletterForm">
+      <label for="nlEmail" class="sr-only" style="position:absolute; left:-9999px;">Email address</label>
+      <input type="email" id="nlEmail" placeholder="you@example.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Cacao Atlas. Sourced, not blended.</span>
+    <ul class="foot-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#story">Sourcing</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer" role="dialog" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head">
+    <h2>Your cart</h2>
+    <button class="drawer-close" id="drawerClose" aria-label="Close cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot"></div>
+</aside>
+
+<script>
+(function(){
+  "use strict";
+
+  var PRODUCTS = [
+    { id:"ecuador",  name:"Ecuador 85%",   origin:"Arriba Nacional, Guayas", coords:"2.19°S 79.89°W", percent:85, price:12, color:"#3E2417",
+      notes:"Red cherry, toasted almond, dark honey" },
+    { id:"madagascar", name:"Madagascar 70%", origin:"Sambirano Valley", coords:"13.75°S 48.27°E", percent:70, price:11, color:"#8A5A3C",
+      notes:"Citrus zest, red berry, brown butter" },
+    { id:"vietnam", name:"Vietnam 78%", origin:"Mekong Delta, Ben Tre", coords:"10.24°N 106.38°E", percent:78, price:12, color:"#5C3623",
+      notes:"Dried fig, black pepper, molasses" },
+    { id:"peru", name:"Peru 90%", origin:"Amazonas", coords:"6.23°S 77.87°W", percent:90, price:13, color:"#2A160E",
+      notes:"Cacao nib, tobacco leaf, dark cherry" },
+    { id:"tanzania", name:"Tanzania 72%", origin:"Kilombero Valley", coords:"8.75°S 36.02°E", percent:72, price:11, color:"#754C31",
+      notes:"Stone fruit, jasmine, raw sugar" },
+    { id:"png", name:"Papua New Guinea 80%", origin:"East Sepik", coords:"4.5°S 143.0°E", percent:80, price:12, color:"#4A2A1B",
+      notes:"Smoked wood, dried mango, cocoa butter" }
+  ];
+
+  var STORAGE_KEY = "cacaoAtlasCart";
+  var cart = loadCart();
+
+  function loadCart(){
+    try{
+      var raw = window.localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveCart(){
+    try{ window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); }catch(e){}
+  }
+  function productById(id){
+    for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; }
+    return null;
+  }
+
+  function renderProducts(){
+    var list = document.getElementById("productList");
+    var html = "";
+    PRODUCTS.forEach(function(p){
+      html += ''
+        + '<div class="product-row">'
+        + '  <div class="bar" style="background:'+p.color+'"><span class="pct">'+p.percent+'%</span></div>'
+        + '  <div class="p-name">'
+        + '    <h3>'+p.name+'</h3>'
+        + '    <div class="p-origin">'+p.origin+'</div>'
+        + '    <div class="p-coords">'+p.coords+'</div>'
+        + '  </div>'
+        + '  <div class="p-notes">'+p.notes+'</div>'
+        + '  <div class="p-price">$'+p.price.toFixed(2)+'</div>'
+        + '  <button class="p-add" data-id="'+p.id+'">Add to cart</button>'
+        + '</div>';
+    });
+    list.innerHTML = html;
+
+    list.querySelectorAll(".p-add").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        addToCart(btn.getAttribute("data-id"));
+        btn.classList.add("added");
+        var original = btn.textContent;
+        btn.textContent = "Added";
+        setTimeout(function(){
+          btn.classList.remove("added");
+          btn.textContent = original;
+        }, 900);
+      });
+    });
+  }
+
+  function addToCart(id){
+    cart[id] = (cart[id] || 0) + 1;
+    saveCart();
+    renderCart();
+  }
+  function setQty(id, qty){
+    if(qty <= 0){ delete cart[id]; }
+    else { cart[id] = qty; }
+    saveCart();
+    renderCart();
+  }
+  function removeItem(id){
+    delete cart[id];
+    saveCart();
+    renderCart();
+  }
+  function cartCount(){
+    var n = 0;
+    for(var id in cart){ n += cart[id]; }
+    return n;
+  }
+  function cartSubtotal(){
+    var sum = 0;
+    for(var id in cart){
+      var p = productById(id);
+      if(p) sum += p.price * cart[id];
+    }
+    return sum;
+  }
+
+  function renderCart(){
+    document.getElementById("cartCount").textContent = cartCount();
+
+    var body = document.getElementById("drawerBody");
+    var foot = document.getElementById("drawerFoot");
+    var ids = Object.keys(cart);
+
+    if(ids.length === 0){
+      body.innerHTML = '<div class="cart-empty">Your cart is empty. Add a bar from the atlas to get started.</div>';
+      foot.innerHTML = "";
+      return;
+    }
+
+    var html = "";
+    ids.forEach(function(id){
+      var p = productById(id);
+      if(!p) return;
+      var qty = cart[id];
+      html += ''
+        + '<div class="cart-item">'
+        + '  <div class="mini-bar" style="background:'+p.color+'"></div>'
+        + '  <div>'
+        + '    <h4>'+p.name+'</h4>'
+        + '    <div class="ci-meta">'+p.origin+'</div>'
+        + '    <div class="qty-row">'
+        + '      <button data-action="dec" data-id="'+id+'" aria-label="Decrease quantity">−</button>'
+        + '      <span>'+qty+'</span>'
+        + '      <button data-action="inc" data-id="'+id+'" aria-label="Increase quantity">+</button>'
+        + '      <button class="remove-btn" data-action="remove" data-id="'+id+'">Remove</button>'
+        + '    </div>'
+        + '  </div>'
+        + '  <div class="ci-price">$'+(p.price*qty).toFixed(2)+'</div>'
+        + '</div>';
+    });
+    body.innerHTML = html;
+
+    body.querySelectorAll("button[data-action]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-id");
+        var action = btn.getAttribute("data-action");
+        if(action === "remove"){ removeItem(id); return; }
+        var current = cart[id] || 0;
+        setQty(id, action === "inc" ? current+1 : current-1);
+      });
+    });
+
+    var subtotal = cartSubtotal();
+    foot.innerHTML = ''
+      + '<div class="subtotal-row"><span>Subtotal</span><strong>$'+subtotal.toFixed(2)+'</strong></div>'
+      + '<p class="foot-note">Shipping and any duties are calculated at checkout.</p>'
+      + '<button class="checkout-btn" id="checkoutBtn">Checkout</button>'
+      + '<p class="demo-note">Demo checkout — no payment is processed.</p>';
+
+    document.getElementById("checkoutBtn").addEventListener("click", handleCheckout);
+  }
+
+  function handleCheckout(){
+    var body = document.getElementById("drawerBody");
+    var foot = document.getElementById("drawerFoot");
+    body.innerHTML = ''
+      + '<div class="confirm">'
+      + '  <h3>Order placed</h3>'
+      + '  <p>This is a demo storefront, so nothing was charged. A working checkout can be wired in when you connect a payment provider.</p>'
+      + '  <button id="confirmClose">Continue browsing</button>'
+      + '</div>';
+    foot.innerHTML = "";
+    cart = {};
+    saveCart();
+    document.getElementById("cartCount").textContent = "0";
+    document.getElementById("confirmClose").addEventListener("click", closeDrawer);
+  }
+
+  // ---- Drawer open/close ----
+  var drawer = document.getElementById("cartDrawer");
+  var overlay = document.getElementById("overlay");
+
+  function openDrawer(){
+    renderCart();
+    drawer.classList.add("open");
+    overlay.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+  }
+  function closeDrawer(){
+    drawer.classList.remove("open");
+    overlay.classList.remove("open");
+    drawer.setAttribute("aria-hidden", "true");
+  }
+
+  document.getElementById("cartToggle").addEventListener("click", openDrawer);
+  document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+  overlay.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeDrawer();
+  });
+
+  // ---- Newsletter (demo) ----
+  document.getElementById("newsletterForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var input = document.getElementById("nlEmail");
+    var btn = e.target.querySelector("button");
+    var original = btn.textContent;
+    btn.textContent = "Subscribed";
+    input.value = "";
+    setTimeout(function(){ btn.textContent = original; }, 2200);
+  });
+
+  renderProducts();
+  renderCart();
+})();
+</script>
+
+</body>
+</html>
